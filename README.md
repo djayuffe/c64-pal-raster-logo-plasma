@@ -1,5 +1,9 @@
 # C64 Ultimate PAL
 
+![C64 effect preview](docs/preview.png)
+
+Visual preview asset for this effect; run the VICE command below for an emulator capture.
+
 IRQ-free PAL C64 demo with frame-synchronised raster sections, sprites,
 scroller, logo effects, plasma colors, and generated charset decoration.
 
