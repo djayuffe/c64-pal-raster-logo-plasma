@@ -1,8 +1,8 @@
 .PHONY: all clean
 
 ACME ?= acme
-OUTPUT := build/deepseek_c64_ultimate_pal.prg
-SOURCE := deepseek_c64_ultimate_pal.s
+OUTPUT := build/c64_pal_raster_logo_plasma.prg
+SOURCE := c64_pal_raster_logo_plasma.s
 
 all: $(OUTPUT)
 

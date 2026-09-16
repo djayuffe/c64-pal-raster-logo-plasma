@@ -1,13 +1,13 @@
 ; =============================================================
-; deepseek_c64_ultimate_pal.s
+; c64_pal_raster_logo_plasma.s
 ; PAL C64 demo (NO IRQs) — raster-polled timing.
 ; IMPORTANT FIX: Entry point is now at $1000 (Start is first), so SYS4096 works.
 ; Includes r7e improvements: frame sync + safe raster waits. IRQs stay disabled.
 ; =============================================================
 ; Build:
-;   acme -f cbm -o deepseek_c64_ultimate_pal.prg deepseek_c64_ultimate_pal.s
+;   acme -f cbm -o c64_pal_raster_logo_plasma.prg c64_pal_raster_logo_plasma.s
 ; Run:
-;   x64sc -autostart deepseek_c64_ultimate_pal.prg
+;   x64sc -autostart c64_pal_raster_logo_plasma.prg
 ; =============================================================
 
 ; ---------------- BASIC stub: 10 SYS4096 ----------------

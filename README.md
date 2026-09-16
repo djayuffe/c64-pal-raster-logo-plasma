@@ -1,4 +1,4 @@
-# DeepSeek C64 Ultimate PAL
+# C64 Ultimate PAL
 
 IRQ-free PAL C64 demo with frame-synchronised raster sections, sprites,
 scroller, logo effects, plasma colors, and generated charset decoration.
@@ -11,15 +11,15 @@ Requires ACME 0.97 or newer:
 make
 ```
 
-The output is `build/deepseek_c64_ultimate_pal.prg`. Run it with:
+The output is `build/c64_pal_raster_logo_plasma.prg`. Run it with:
 
 ```sh
-x64sc -autostart build/deepseek_c64_ultimate_pal.prg
+x64sc -autostart build/c64_pal_raster_logo_plasma.prg
 ```
 
 ## Repository layout
 
-- `deepseek_c64_ultimate_pal.s` — corrected source.
+- `c64_pal_raster_logo_plasma.s` — corrected source.
 - `Makefile` — strict ACME build and clean targets.
 - `AUDIT.md` — repairs, design constraints, and validation.
 - `SHA256SUMS.txt` — checksums for tracked files.
