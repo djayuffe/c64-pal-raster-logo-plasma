@@ -28,3 +28,7 @@ x64sc -autostart build/c64_pal_raster_logo_plasma.prg
 
 Sprite phase indexing, logo color-pointer corruption, and raster carry leakage
 were repaired while preserving the no-IRQ design and `SYS 4096` entry point.
+## Documentation and license
+
+Function-level documentation is in docs/FUNCTIONS.md. The project is released
+under GPL-3.0; see LICENSE.
