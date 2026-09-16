@@ -1,4 +1,4 @@
-# C64 Ultimate PAL
+# C64 - PAL Raster Logo Plasma
 
 ![C64 effect preview](docs/preview.png)
 
