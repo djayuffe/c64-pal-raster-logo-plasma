@@ -1,13 +1,13 @@
 ; =============================================================
-; deepseek_asm_20251009_ULTIMATE_EYECANDY_FINAL_PAL_r7f_SAFE_NOIRQ_SYS4096.s
+; deepseek_c64_ultimate_pal.s
 ; PAL C64 demo (NO IRQs) — raster-polled timing.
 ; IMPORTANT FIX: Entry point is now at $1000 (Start is first), so SYS4096 works.
 ; Includes r7e improvements: frame sync + safe raster waits. IRQs stay disabled.
 ; =============================================================
 ; Build:
-;   acme -f cbm -o ultimate_demo.prg deepseek_asm_20251009_ULTIMATE_EYECANDY_FINAL_PAL_r7f_SAFE_NOIRQ_SYS4096.s
+;   acme -f cbm -o deepseek_c64_ultimate_pal.prg deepseek_c64_ultimate_pal.s
 ; Run:
-;   x64sc -autostart ultimate_demo.prg
+;   x64sc -autostart deepseek_c64_ultimate_pal.prg
 ; =============================================================
 
 ; ---------------- BASIC stub: 10 SYS4096 ----------------

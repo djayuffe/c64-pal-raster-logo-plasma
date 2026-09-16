@@ -1,16 +1,30 @@
-# DeepSeek Ultimate Eye Candy PAL r7f
+# DeepSeek C64 Ultimate PAL
 
 IRQ-free PAL C64 demo with frame-synchronised raster sections, sprites,
 scroller, logo effects, plasma colors, and generated charset decoration.
 
-## Build and run
+## Build
+
+Requires ACME 0.97 or newer:
 
 ```sh
-acme --strict-segments -f cbm -o ultimate_demo.prg \
-  deepseek_asm_20251009_ULTIMATE_EYECANDY_FINAL_PAL_r7f_SAFE_NOIRQ_SYS4096.s
-x64sc -autostart ultimate_demo.prg
+make
 ```
 
-The audit repaired sprite phase indexing, color-pointer high-byte corruption,
-and carry leakage in raster color arithmetic while preserving the no-IRQ
-design. See `AUDIT.md`.
+The output is `build/deepseek_c64_ultimate_pal.prg`. Run it with:
+
+```sh
+x64sc -autostart build/deepseek_c64_ultimate_pal.prg
+```
+
+## Repository layout
+
+- `deepseek_c64_ultimate_pal.s` — corrected source.
+- `Makefile` — strict ACME build and clean targets.
+- `AUDIT.md` — repairs, design constraints, and validation.
+- `SHA256SUMS.txt` — checksums for tracked files.
+
+## Audit summary
+
+Sprite phase indexing, logo color-pointer corruption, and raster carry leakage
+were repaired while preserving the no-IRQ design and `SYS 4096` entry point.
