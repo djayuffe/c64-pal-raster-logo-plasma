@@ -13,9 +13,12 @@ Repairs:
 
 Validation: ACME `--strict-segments` succeeds; the no-IRQ frame-polling design
 and `SYS 4096` entry contract are unchanged. Corrected build SHA-256:
-`9bc27e36ce28905ad567b74bd99504ec14196bb919371587bce8a707b7e2f370`.
+`e2fdbcab209eaa9e63bd9e4450de3ab69bb8a637d72efa46d0446f1c202085f2`.
 
 The repository additionally includes reproducible VICE framebuffer capture in
 `tools/capture_vice.py`. The two tracked 320×200 runtime frames are captured
 through the PRG's `SYS 4096` boot path; the separate concept-art image is
 explicitly labelled as non-runtime artwork.
+
+The colour-wave routine now writes its custom glyph into the animated rows as
+well as colour RAM, making the existing wave effect visible in the live demo.

@@ -380,14 +380,20 @@ ColorWaveEffect:
     sta ZP_TmpA
     ldx #5
 @row:
+    lda RowScrLo,x : sta ZP_SrcLo
+    lda RowScrHi,x : sta ZP_SrcHi
     lda RowColLo,x : sta ZP_DstLo
     lda RowColHi,x : sta ZP_DstHi
     lda ZP_TmpA
     and #$0f
     tay
     lda RainbowBar,y
+    sta ZP_TmpC
     ldy #0
 @cl:
+    lda #$40
+    sta (ZP_SrcLo),y
+    lda ZP_TmpC
     sta (ZP_DstLo),y
     iny
     cpy #40

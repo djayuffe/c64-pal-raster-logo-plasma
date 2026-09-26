@@ -10,7 +10,7 @@ Copyright © 2026 Ulf Bertilsson. Licensed under [GPL-3.0](LICENSE); see
 An IRQ-free, PAL-timed C64 demo written in 6502 assembly. It owns the frame
 loop by polling the VIC raster counter, then switches visual sections at
 raster lines 50, 120, 170, and 220. The result combines an animated two-line
-logo, a hardware-sprite field, colour-wave rows, a smooth bottom scroller,
+  logo, a hardware-sprite field, a colour-wave glyph field, a smooth bottom scroller,
 plasma background cycling, and short border-bar bursts without installing a
 raster IRQ handler.
 
@@ -46,6 +46,8 @@ writes live VICE framebuffers to `docs/runtime-plasma.png` and
   border-bar pulses at 220.
 - **Animated logo:** two centered logo rows have a moving Fire16 colour shine
   and a drop shadow drawn into screen and colour RAM.
+- **Visible colour-wave field:** rows 5–15 are filled with the custom `$40`
+  glyph while their palette phase advances independently by row.
 - **Eight hardware sprites:** all VIC sprites follow sine-table positions,
   share cycling multicolour registers, and toggle X/Y expansion by phase.
   This is a single eight-sprite field, not a sprite multiplexer.
