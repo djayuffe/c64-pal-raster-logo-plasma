@@ -3,9 +3,21 @@
 Copyright © 2026 Ulf Bertilsson. Licensed under [GPL-3.0](LICENSE); see
 [NOTICE](NOTICE) for the project attribution.
 
+## Live VICE captures
+
+Each image is a direct 320×200 framebuffer capture from the compiled PRG.
+
+### Colour-wave and sprite field
+
 ![Runtime plasma frame from VICE](docs/runtime-plasma.png)
 
+### Scroller phase
+
 ![Runtime scroller frame from VICE](docs/runtime-scroller.png)
+
+### Raster-bar phase
+
+![Runtime raster-bar frame from VICE](docs/runtime-raster-bars.png)
 
 An IRQ-free, PAL-timed C64 demo written in 6502 assembly. It owns the frame
 loop by polling the VIC raster counter, then switches visual sections at
@@ -34,8 +46,8 @@ make capture
 ```
 
 This builds the PRG, starts it through its BASIC `SYS 4096` entry point, and
-writes live VICE framebuffers to `docs/runtime-plasma.png` and
-`docs/runtime-scroller.png`.
+writes live VICE framebuffers to `docs/runtime-plasma.png`,
+`docs/runtime-scroller.png`, and `docs/runtime-raster-bars.png`.
 
 ## Features
 

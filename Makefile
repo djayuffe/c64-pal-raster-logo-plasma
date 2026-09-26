@@ -13,6 +13,7 @@ $(OUTPUT): $(SOURCE)
 capture:
 	python3 tools/capture_vice.py docs/runtime-plasma.png --seconds 2
 	python3 tools/capture_vice.py docs/runtime-scroller.png --seconds 6
+	python3 tools/capture_vice.py docs/runtime-raster-bars.png --seconds 5
 
 clean:
 	rm -rf build
