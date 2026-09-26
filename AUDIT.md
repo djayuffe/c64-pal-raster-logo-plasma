@@ -13,4 +13,9 @@ Repairs:
 
 Validation: ACME `--strict-segments` succeeds; the no-IRQ frame-polling design
 and `SYS 4096` entry contract are unchanged. Corrected build SHA-256:
-`ade21d4f5af51ad2182053335acaeed6c7caac648f27e01ac9482fc7f8080c86`.
+`9bc27e36ce28905ad567b74bd99504ec14196bb919371587bce8a707b7e2f370`.
+
+The repository additionally includes reproducible VICE framebuffer capture in
+`tools/capture_vice.py`. The two tracked 320×200 runtime frames are captured
+through the PRG's `SYS 4096` boot path; the separate concept-art image is
+explicitly labelled as non-runtime artwork.

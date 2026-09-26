@@ -1,5 +1,7 @@
 ; =============================================================
 ; c64_pal_raster_logo_plasma.s
+; Copyright (C) 2026 Ulf Bertilsson
+; SPDX-License-Identifier: GPL-3.0-only
 ; PAL C64 demo (NO IRQs) — raster-polled timing.
 ; IMPORTANT FIX: Entry point is now at $1000 (Start is first), so SYS4096 works.
 ; Includes r7e improvements: frame sync + safe raster waits. IRQs stay disabled.
@@ -111,7 +113,7 @@ Ice16:        !byte 6,14,3,1,1,3,14,6,0,6,14,3,1,1,3,14
 
 ScrollText:
 !scr "    *** ultimate horizonwarp demo *** "
-!scr "featuring: plasma waves * color bars * sprite multiplex * "
+!scr "featuring: plasma waves * color bars * eight sprites * "
 !scr "smooth scroll * raster splits * animated charset * "
 !scr "and maximum c64 eye candy! *** "
 !scr "coded with pure 6502 assembly *** "
