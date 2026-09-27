@@ -6,24 +6,57 @@ Copyright © 2026 Ulf Bertilsson. Licensed under [GPL-3.0](LICENSE); see
 ## Live VICE captures
 
 Each image is a direct 320×200 framebuffer capture from the compiled PRG.
+They show distinct points in the continuously running effect rather than
+separate screens or post-processed mockups.
 
-### Colour-wave and sprite field
+### Booted logo and early colour-wave field
 
 ![Runtime plasma frame from VICE](docs/runtime-plasma.png)
+
+The logo's Fire16/Ice16 colour shine is active while the `$40` custom glyph
+begins filling the colour-wave rows below it.
+
+### Full colour-wave field
+
+![Wide live colour-wave field from VICE](docs/runtime-colour-wave.png)
+
+Rows 5–15 are visibly filled with the custom glyph while their colour phase
+advances independently by row, producing the wide horizontal wave.
+
+### Raster transition
+
+![Live raster transition from VICE](docs/runtime-raster-transition.png)
+
+This frame catches the display as the later raster sections alter the active
+palette: the logo remains stable while the field changes around it.
+
+### Raster-bar burst
+
+![Runtime raster-bar frame from VICE](docs/runtime-raster-bars.png)
+
+Short, timed `Ice16` border writes occur after raster line 220, then restore
+the blue border before the following frame.
 
 ### Scroller phase
 
 ![Runtime scroller frame from VICE](docs/runtime-scroller.png)
 
-### Raster-bar phase
+The bottom-row message moves one character per eight fine-scroll steps while
+new characters receive cycling Fire16 colours.
 
-![Runtime raster-bar frame from VICE](docs/runtime-raster-bars.png)
+### Later scroller palette state
+
+![Later live scroller palette state from VICE](docs/runtime-scroll-cycle.png)
+
+This later frame shows the same single continuous loop with a different plasma
+and logo palette phase. The exact frame captured will naturally vary between
+VICE runs because the demo is animated.
 
 An IRQ-free, PAL-timed C64 demo written in 6502 assembly. It owns the frame
 loop by polling the VIC raster counter, then switches visual sections at
 raster lines 50, 120, 170, and 220. The result combines an animated two-line
-  logo, a hardware-sprite field, a colour-wave glyph field, a smooth bottom scroller,
-plasma background cycling, and short border-bar bursts without installing a
+logo, a hardware-sprite field, a colour-wave glyph field, a smooth bottom
+scroller, plasma background cycling, and short border-bar bursts without installing a
 raster IRQ handler.
 
 The images above are reproducible 320×200 framebuffers captured from the
@@ -46,8 +79,9 @@ make capture
 ```
 
 This builds the PRG, starts it through its BASIC `SYS 4096` entry point, and
-writes live VICE framebuffers to `docs/runtime-plasma.png`,
-`docs/runtime-scroller.png`, and `docs/runtime-raster-bars.png`.
+writes the six live VICE framebuffers used above. Their capture delays range
+from two to seven seconds, giving the gallery representative colour-wave,
+raster, and scroller phases.
 
 ## Features
 
