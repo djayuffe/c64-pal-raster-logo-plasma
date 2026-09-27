@@ -1,7 +1,31 @@
-# C64 - PAL Raster Logo Plasma
+# C64 PAL Raster Logo Plasma
 
-Copyright © 2026 Ulf Bertilsson. Licensed under [GPL-3.0](LICENSE); see
-[NOTICE](NOTICE) for the project attribution.
+[![Build and verify](https://github.com/djayuffe/c64-pal-raster-logo-plasma/actions/workflows/ci.yml/badge.svg)](https://github.com/djayuffe/c64-pal-raster-logo-plasma/actions/workflows/ci.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+
+An original PAL-timed Commodore 64 demo written in 6502 assembly. It drives an
+animated logo, a colour-wave glyph field, eight hardware sprites, plasma
+colours, a fine-scroll message, and border-bar bursts from one raster-polled
+main loop—without installing a raster IRQ handler.
+
+Copyright (C) 2026 Ulf Bertilsson. Released under the
+[GNU General Public License v3.0 only](LICENSE); see [NOTICE](NOTICE) for the
+project copyright statement.
+
+## Highlights
+
+- **PAL raster choreography:** visual sections run at lines 50, 120, 170, and
+  220 after synchronisation to a clean raster-zero frame edge.
+- **No-IRQ execution:** CIA and VIC interrupts remain disabled while the demo
+  owns timing through safe raster polling.
+- **Animated presentation:** two logo rows use independent Fire16 and Ice16
+  colour shines; the lower row is a continuous eight-step fine scroller.
+- **Live colour wave:** rows 5–15 use a generated `$40` glyph with separately
+  phased colours for a broad horizontal field.
+- **Eight hardware sprites:** sine-table positions, shared multicolour
+  registers, and phase-controlled X/Y expansion; this is not a multiplexer.
+- **Generated assets:** the ROM character set is copied into RAM, boldened,
+  and complemented by generated sprite data at runtime.
 
 ## Live VICE captures
 
@@ -62,14 +86,31 @@ raster IRQ handler.
 The images above are reproducible 320×200 framebuffers captured from the
 compiled PRG in VICE—not concept art or post-processed mockups.
 
-## Build and run
+## Quick start
 
-Requires ACME 0.97 or newer:
+Download `c64_pal_raster_logo_plasma.prg` from the latest GitHub release and
+start it in a PAL-capable C64 emulator or on suitable hardware. In VICE:
+
+```sh
+x64sc -autostart c64_pal_raster_logo_plasma.prg
+```
+
+The PRG contains a BASIC loader that executes `SYS 4096`; no keyboard controls
+are required. RESTORE safely returns from the NMI, while the demo runs until
+reset.
+
+### Build from source
+
+Requirements: ACME 0.97 or newer, Python 3 for the optional capture helper,
+and VICE `x64sc` 3.6 or newer for runtime screenshots.
 
 ```sh
 make
 x64sc -autostart build/c64_pal_raster_logo_plasma.prg
 ```
+
+The project targets PAL timing. It is intended for a C64 or C128 running in
+C64 mode with a PAL VIC-II; NTSC timing has not been tuned or validated.
 
 To recreate the documented runtime captures, install VICE `x64sc` 3.6 or
 newer and run:
@@ -81,7 +122,9 @@ make capture
 This builds the PRG, starts it through its BASIC `SYS 4096` entry point, and
 writes the six live VICE framebuffers used above. Their capture delays range
 from two to seven seconds, giving the gallery representative colour-wave,
-raster, and scroller phases.
+raster, and scroller phases. Because the demo is animated, regenerated images
+can show a different instantaneous palette or scroller position while staying
+valid runtime output.
 
 ## Features
 
@@ -106,14 +149,44 @@ raster, and scroller phases.
 - **VIC layout:** bank 0, screen `$0400`, colour RAM `$d800`, and charset
   `$2000` with `$d018=$18` in standard 40-column text mode.
 
+## Frame schedule
+
+| Raster point | Routine | Visible work |
+| --- | --- | --- |
+| frame wrap / 0 | `WaitFrameStart`, `UpdateScroll` | Synchronise to a clean PAL frame edge and advance the fine scroll. |
+| 50 | `TopSection` | Animate the logo shine and set a border colour. |
+| 120 | `MidSection` | Update sprite positions and draw the colour-wave field. |
+| 170 | `PlasmaEffect` | Advance the background plasma colour. |
+| 220 | `RasterBars` | Emit a short border-bar burst, then restore the base border. |
+
+`WaitRasterA` detects a target that has already passed and waits for the next
+frame, preventing an unintended whole-frame stall. See
+[docs/FUNCTIONS.md](docs/FUNCTIONS.md) for the routine and memory-layout
+reference.
+
+## Validate and maintain
+
+```sh
+make
+shasum -a 256 -c SHA256SUMS.txt
+python3 -B -c 'import ast, pathlib; ast.parse(pathlib.Path("tools/capture_vice.py").read_text())'
+```
+
+The GitHub Actions pipelines perform the same clean build and validation on
+pull requests, `main`, version tags, and published releases. They preserve the
+assembled PRG as a workflow artifact. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
+for the release checklist and CI details.
+
 ## Repository layout
 
 - `c64_pal_raster_logo_plasma.s` — source and the `SYS 4096` entry point.
 - `Makefile` — strict ACME build, capture, and clean targets.
 - `tools/capture_vice.py` — reproducible VICE framebuffer capture helper.
 - `docs/FUNCTIONS.md` — source-backed feature and routine reference.
+- `docs/DEVELOPMENT.md` — toolchain, CI, validation, and release guide.
 - `AUDIT.md` — original correction record and design constraints.
 - `SHA256SUMS.txt` — checksums for the complete tracked release set.
+- `CHANGELOG.md` — versioned release notes.
 
 ## Audit summary
 
@@ -126,3 +199,11 @@ point. See [AUDIT.md](AUDIT.md) for the original correction record.
 The original visual artwork is retained separately as
 ![concept art](docs/concept-art.png). It is inspiration only and is not
 presented as demo output.
+
+## License and attribution
+
+All original project code, documentation, and included runtime assets are
+Copyright (C) 2026 Ulf Bertilsson and licensed under GPL-3.0-only. You may
+copy, modify, and redistribute this project under GPLv3 terms; preserved copies
+and derivatives must retain the required licence notices. The software is
+provided without warranty. See [LICENSE](LICENSE) and [NOTICE](NOTICE).

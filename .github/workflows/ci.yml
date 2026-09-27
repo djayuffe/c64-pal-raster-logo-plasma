@@ -1,0 +1,42 @@
+name: Build and verify
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install ACME
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes acme
+          acme --version
+
+      - name: Assemble release PRG
+        run: |
+          make clean
+          make
+
+      - name: Verify release integrity manifest
+        run: shasum -a 256 -c SHA256SUMS.txt
+
+      - name: Validate capture helper
+        run: python3 -B -c 'import ast, pathlib; ast.parse(pathlib.Path("tools/capture_vice.py").read_text())'
+
+      - name: Upload assembled PRG
+        uses: actions/upload-artifact@v4
+        with:
+          name: c64-pal-raster-logo-plasma-prg
+          path: build/c64_pal_raster_logo_plasma.prg
+          if-no-files-found: error

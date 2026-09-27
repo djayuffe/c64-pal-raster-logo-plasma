@@ -1,6 +1,7 @@
 ; =============================================================
 ; c64_pal_raster_logo_plasma.s
 ; Copyright (C) 2026 Ulf Bertilsson
+; SPDX-FileCopyrightText: 2026 Ulf Bertilsson
 ; SPDX-License-Identifier: GPL-3.0-only
 ; PAL C64 demo (NO IRQs) — raster-polled timing.
 ; IMPORTANT FIX: Entry point is now at $1000 (Start is first), so SYS4096 works.

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Ulf Bertilsson
+# SPDX-License-Identifier: GPL-3.0-only
 """Capture a real 320x200 VICE framebuffer from the assembled demo.
 
 Requires VICE x64sc with its binary monitor (VICE 3.6+) and Python 3.
